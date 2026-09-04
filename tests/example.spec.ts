@@ -32,4 +32,5 @@ test("Selectors", async ({ page }) => {
 
   // XPath
   await page.click('//button')
+  
 } )
