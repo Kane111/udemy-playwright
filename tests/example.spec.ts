@@ -15,22 +15,35 @@ test("Clicking on Elements", async ({ page }) => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
 }) 
 
-test("Selectors", async ({ page }) => {
+// test("Selectors", async ({ page }) => {
   // text
-  await page.click('text=some text')
+  // await page.click('text=some text')
 
   // CSS Selectors
-  await page.click('button')
-  await page.click('#id')
-  await page.click('.class')
+  // await page.click('button')
+  // await page.click('#id')
+  // await page.click('.class')
 
-  //Only visible CSS Selector
-  await page.click('.submit-button:visible')
+  // Only visible CSS Selector
+  // await page.click('.submit-button:visible')
 
-  //Combinations
-  await page.click('#username .first')
+  // Combinations
+  // await page.click('#username .first')
 
   // XPath
-  await page.click('//button')
+  // await page.click('//button')
   
-} )
+// } )
+
+
+test("Working with inputs", async ({ page }) => {
+  await page.goto("http://zero.webappsecurity.com/index.html")
+  await page.click("#signin_button")
+
+  await page.type('#user_login', 'some username')
+  await page.type('#user_password', 'some password')
+  await page.click("text=Sign in")
+
+    const errorMessage = await page.locator(".alert-error")
+    await expect(errorMessage).toContainText('Login and/or password are wrong.')
+})
