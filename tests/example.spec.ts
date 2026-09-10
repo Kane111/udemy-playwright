@@ -15,28 +15,29 @@ test("Clicking on Elements", async ({ page }) => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
 }) 
 
-// test("Selectors", async ({ page }) => {
+test.skip("Selectors", async ({ page }) => {
   // text
-  // await page.click('text=some text')
+  await page.click('text=some text')
 
   // CSS Selectors
-  // await page.click('button')
-  // await page.click('#id')
-  // await page.click('.class')
+  await page.click('button')
+  await page.click('#id')
+  await page.click('.class')
 
   // Only visible CSS Selector
-  // await page.click('.submit-button:visible')
+  await page.click('.submit-button:visible')
 
   // Combinations
-  // await page.click('#username .first')
+  await page.click('#username .first')
 
   // XPath
-  // await page.click('//button')
+  await page.click('//button')
   
-// } )
+ } )
 
 
-test("Working with inputs", async ({ page }) => {
+test.describe("My first test suite", () => {
+  test("Working with inputs", async ({ page }) => {
   await page.goto("http://zero.webappsecurity.com/index.html")
   await page.click("#signin_button")
 
@@ -63,4 +64,5 @@ test("Assertions", async ({ page }) => {
 
   await expect(element).not.toBeEmpty()
   await expect(element).toBeEnabled()
+})
 })
