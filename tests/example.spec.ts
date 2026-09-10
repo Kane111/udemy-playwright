@@ -37,7 +37,8 @@ test.skip("Selectors", async ({ page }) => {
 
 
 test.describe("My first test suite", () => {
-  test("Working with inputs", async ({ page }) => {
+  // The tag below can be used with following command (npx playwright test --grep @myTag) to execute only the tests that are marked with the tag. To execute the tests that are NOT marked with the tag, use the --grep-invert instead of --grep.
+  test("Working with inputs @myTag", async ({ page }) => {
   await page.goto("http://zero.webappsecurity.com/index.html")
   await page.click("#signin_button")
 
@@ -49,7 +50,7 @@ test.describe("My first test suite", () => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
 })
 
-test("Assertions", async ({ page }) => {
+test("Assertions @myTag", async ({ page }) => {
   await page.goto('https://example.com/')
   await expect(page).toHaveURL("https://example.com/")
   await expect(page).toHaveTitle("Example Domain")
