@@ -50,7 +50,7 @@ test.describe("My first test suite", () => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
 })
 
-test("Assertions @myTag", async ({ page }) => {
+test.only("Assertions @myTag", async ({ page }) => {
   await page.goto('https://example.com/')
   await expect(page).toHaveURL("https://example.com/")
   await expect(page).toHaveTitle("Example Domain")
