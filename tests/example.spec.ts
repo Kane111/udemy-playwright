@@ -50,7 +50,7 @@ test.describe("My first test suite", () => {
     await expect(errorMessage).toContainText('Login and/or password are wrong.')
 })
 
-test.only("Assertions @myTag", async ({ page }) => {
+test("Assertions @myTag", async ({ page }) => {
   await page.goto('https://example.com/')
   await expect(page).toHaveURL("https://example.com/")
   await expect(page).toHaveTitle("Example Domain")
@@ -66,4 +66,18 @@ test.only("Assertions @myTag", async ({ page }) => {
   await expect(element).not.toBeEmpty()
   await expect(element).toBeEnabled()
 })
+})
+
+test.only("Screenshots", async ({ page }) => {
+  // Step 1: load website
+  await page.goto('https://example.com/')
+  // Step 2: take screenshot of full page
+  await page.screenshot({ path: "screenshot.png", fullPage: true })
+})
+
+test.only("Single Element Screenshot", async ({ page }) => {
+  
+  await page.goto('https://example.com/')
+  const element = await page.$('h1')
+  await element.screenshot({ path: "single_element_screenshot.png" })
 })
