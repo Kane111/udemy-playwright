@@ -68,16 +68,28 @@ test("Assertions @myTag", async ({ page }) => {
 })
 })
 
-test.only("Screenshots", async ({ page }) => {
+test.describe.only("Hooks", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://example.com/')
+  })
+
+  //test.afterEach(async ({ page }) => {
+// same thing here but for the after test, not before test
+  //})
+  
+  
+  test("Screenshots", async ({ page }) => {
   // Step 1: load website
-  await page.goto('https://example.com/')
+  // await page.goto('https://example.com/') -- now obsolete, because the thing above (test.beforeEach) now does it before every test
   // Step 2: take screenshot of full page
   await page.screenshot({ path: "screenshot.png", fullPage: true })
 })
 
-test.only("Single Element Screenshot", async ({ page }) => {
+test("Single Element Screenshot", async ({ page }) => {
   
-  await page.goto('https://example.com/')
+  // await page.goto('https://example.com/')
   const element = await page.$('h1')
   await element.screenshot({ path: "single_element_screenshot.png" })
+})
+
 })
