@@ -70,7 +70,7 @@ test("Assertions @myTag", async ({ page }) => {
 })
 })
 
-test.describe("Hooks", () => {
+test.describe.parallel.only("Hooks", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://example.com/')
   })
@@ -95,7 +95,7 @@ test("Single Element Screenshot", async ({ page }) => {
 })
 })
 
-test.only ("Custom Helpers", async ({ page }) => {
+test ("Custom Helpers", async ({ page }) => {
   await loadHomepage(page)
   // await page.pause() -- testing code to pause the execution (in headed mode) for inspection, can resume through Playwright; delete after testing the code
   await assertTitle(page)
