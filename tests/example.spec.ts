@@ -99,4 +99,5 @@ test.only ("Custom Helpers", async ({ page }) => {
   await loadHomepage(page)
   // await page.pause() -- testing code to pause the execution (in headed mode) for inspection, can resume through Playwright; delete after testing the code
   await assertTitle(page)
+  // changed h1 to h5 in helpers, probably change back 
 } )
