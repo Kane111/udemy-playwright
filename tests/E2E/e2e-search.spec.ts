@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe.only("Search Results", () => {
+test.describe("Search Results", () => {
     test("Should find search results", async ({ page }) => {
         await page.goto("http://zero.webappsecurity.com/")
         await page.type("#searchTerm", "bank")
