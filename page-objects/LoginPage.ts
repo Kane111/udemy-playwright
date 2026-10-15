@@ -24,4 +24,23 @@ export class LoginPage {
     async visit() {
         await this.page.goto("http://zero.webappsecurity.com/index.html")
     }
+
+    async login(username: string, password: string) {
+        await this.usernameInput.type(username)
+        await this.passwordInput.type(password)
+        await this.submitButton.click()
+        await this.page.waitForTimeout(500);
+        await this.page.goBack()
+    }
+
+    // Need additional function without waiting for timeout and going back because wrong password and login don't fuck up the process to need it
+    async wrongLogin(username: string, password: string) {
+        await this.usernameInput.type(username)
+        await this.passwordInput.type(password)
+        await this.submitButton.click()
+    }
+
+    async assertErrorMessage() {
+        await expect(this.errorMessage).toContainText("Login and/or password are wrong")
+    }
 }

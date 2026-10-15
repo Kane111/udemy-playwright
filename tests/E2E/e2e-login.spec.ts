@@ -15,45 +15,30 @@ test.beforeEach(async ({ page }) => {
     //await page.goto('https://en.wikipedia.org/wiki/Main_Page')
 })
 
-    // Negative Scenario (Old, Wikipedia)
+    // Negative Scenario 
 
-    test.skip("Negative Scenario for login", async ({ page }) => {
-        await page.click("#pt-login-2")
-        await page.type("#wpName1", "1232112312312")
-        await page.type("#wpPassword1", "31231321312123")
-        await page.click("#wpLoginAttempt")
-
-        const errorMessage = page.locator(".cdx-message__content")
-        await expect(errorMessage).toContainText("Incorrect username or password entered.")    
+    test("Negative Scenario for login", async ({ page }) => {
+        await page.click("#signin_button")
+        await loginPage.wrongLogin("invalid username", "invalid password")
+        await loginPage.assertErrorMessage()
     })
 
-    //Positive Scenario + Logout (old, Wikipedia)
-
-    test.skip("Positive Scenario for login and logout", async ({ page }) => {
-        
-        // Logging in
-        await page.click("#pt-login-2")
-        await page.type("#wpName1", "KaneTest101")
-        await page.type("#wpPassword1", "ip,Pt<3Pb-kL(!)")
-        await page.click("#wpLoginAttempt")
-    
-        // Checking if the "Main Page" banner is visible
-        const wikipediaMainPage = await page.locator("#mwBg")
-        await expect(wikipediaMainPage).toBeVisible()
-
-        // Clicking on the User dropdown, clicking logout button, checking if we're on the correct page past logout
-        await page.click("#vector-user-links-dropdown-checkbox")
-        await page.click("#pt-logout")
-        await expect(page).toHaveURL("https://en.wikipedia.org/w/index.php?title=Special:UserLogout&returnto=Main+Page")
-
-    })
+    //Positive Scenario + Logout 
 
         test("Positive Scenario login for WebApp", async ({ page }) => {
-        await page.click("#signin_button")
-        await page.type("#user_login", "username")
-        await page.type("#user_password", "password")
-        await page.click(".btn-primary")
-        await page.waitForTimeout(500);
-        await page.goto("http://zero.webappsecurity.com/index.html")
+            await page.click("#signin_button")
+            await loginPage.login("username", "password")
+
+            // A small workaround to make the following stuff work, because the video uses an earlier version of stuff
+            // Which doesn't work for me, and I have to go manually where teacher gets by pressing 1 button
+            // So, here we are anyway
+            await page.click("#online-banking")
+            await page.click("#account_summary_link")
+
+            const accountSummaryTab = await page.locator("#account_summary_tab")
+            await expect(accountSummaryTab).toBeVisible()
+
+            await page.goto("http://zero.webappsecurity.com/logout.html")
+            await expect(page).toHaveURL("http://zero.webappsecurity.com/index.html")
     })
 })
