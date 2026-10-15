@@ -1,15 +1,23 @@
 import { test, expect } from '@playwright/test'
+import { LoginPage } from "../../page-objects/LoginPage.ts"
 
-test.describe.parallel("Login / Logout Flow", () => {
+test.describe.parallel.only("Login / Logout Flow", () => {
+    let loginPage: LoginPage
     // Before Hook
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://en.wikipedia.org/wiki/Main_Page')
+    loginPage = new LoginPage(page)
+    
+    //New version
+    await loginPage.visit()
+
+    //Old version
+    //await page.goto('https://en.wikipedia.org/wiki/Main_Page')
 })
 
-    // Negative Scenario
+    // Negative Scenario (Old, Wikipedia)
 
-    test("Negative Scenario for login", async ({ page }) => {
+    test.skip("Negative Scenario for login", async ({ page }) => {
         await page.click("#pt-login-2")
         await page.type("#wpName1", "1232112312312")
         await page.type("#wpPassword1", "31231321312123")
@@ -19,9 +27,9 @@ test.beforeEach(async ({ page }) => {
         await expect(errorMessage).toContainText("Incorrect username or password entered.")    
     })
 
-    //Positive Scenario + Logout
+    //Positive Scenario + Logout (old, Wikipedia)
 
-    test("Positive Scenario for login and logout", async ({ page }) => {
+    test.skip("Positive Scenario for login and logout", async ({ page }) => {
         
         // Logging in
         await page.click("#pt-login-2")
@@ -38,5 +46,14 @@ test.beforeEach(async ({ page }) => {
         await page.click("#pt-logout")
         await expect(page).toHaveURL("https://en.wikipedia.org/w/index.php?title=Special:UserLogout&returnto=Main+Page")
 
+    })
+
+        test("Positive Scenario login for WebApp", async ({ page }) => {
+        await page.click("#signin_button")
+        await page.type("#user_login", "username")
+        await page.type("#user_password", "password")
+        await page.click(".btn-primary")
+        await page.waitForTimeout(500);
+        await page.goto("http://zero.webappsecurity.com/index.html")
     })
 })
