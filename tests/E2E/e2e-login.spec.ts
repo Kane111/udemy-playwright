@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 import { LoginPage } from "../../page-objects/LoginPage.ts"
 import { HomePage } from '../../page-objects/HomePage.ts'
 
-test.describe.parallel.only("Login / Logout Flow", () => {
+test.describe.parallel("Login / Logout Flow", () => {
     // Creating the variables for imported functions from other files above
     let loginPage: LoginPage
     let homePage: HomePage

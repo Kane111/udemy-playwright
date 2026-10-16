@@ -1,20 +1,27 @@
 import { test, expect } from '@playwright/test'
+import { HomePage } from '../../page-objects/HomePage'
 
 test.describe("Search Results", () => {
+
+    let homePage: HomePage
+
+    test.beforeEach(async ({ page }) => {
+        homePage = new HomePage(page)
+    })
+
+
     test("Should find search results", async ({ page }) => {
-        await page.goto("http://zero.webappsecurity.com/")
-        await page.type("#searchTerm", "bank")
-        await page.keyboard.press("Enter")
+        await homePage.visit()
+        await homePage.searchFor("Bank")
       
         const numberOfLinks = await page.locator("li > a")
         await expect(numberOfLinks).toHaveCount(2)
     })
 
     test("Nonsense search returns nothing", async ({ page }) => {
-        // Go to website, type nonsense into search bar, press "Enter" Button
-        await page.goto("http://zero.webappsecurity.com/")
-        await page.type("#searchTerm", "adjksksajdsakdasldas")
-        await page.keyboard.press("Enter")
+        // Go to website, type nonsense into search bar, press "Enter" Button (refactored to use Objects)
+        await homePage.visit()
+        await homePage.searchFor("adjksksajdsakdasldas")
 
         // Set up a constant "Number of links", which checks the number of search results ("a") as part of search result category ("li")
         // It must have a count of 0, because we do not expect anything to show up, unlike with normal search
