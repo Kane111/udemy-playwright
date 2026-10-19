@@ -1,15 +1,21 @@
 import { test, expect } from '@playwright/test'
 import { HomePage } from '../../page-objects/HomePage'
 import { LoginPage } from '../../page-objects/LoginPage'
+import { PaymentPage } from '../../page-objects/PaymentPage'
+import { Navbar } from '../../page-objects/components/Navbar'
 
-test.describe("New Payment", () => {
+test.describe.only("New Payment", () => {
    
     let homePage: HomePage
     let loginPage: LoginPage
+    let paymentPage: PaymentPage
+    let navbar: Navbar
 
     test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page)
         loginPage = new LoginPage(page)
+        paymentPage = new PaymentPage(page)
+        navbar = new Navbar(page)
 
         await homePage.visit()
         await homePage.clickOnSignIn()
@@ -17,21 +23,11 @@ test.describe("New Payment", () => {
     })
 
     test("Should send new payment", async ({ page }) => {
-        await page.click("#online-banking")
-        await page.click("#pay_bills_link")
-        await page.selectOption("#sp_payee", "apple")
-        await page.click(".icon-question-sign")
-        const payeeDetails = await page.locator("#sp_payee_details")
-        await expect(payeeDetails).toBeVisible()
-        await expect(payeeDetails).toContainText("Apple account")
-        await page.selectOption("#sp_account", "6")
-        await page.type("#sp_amount", "5000")
-        await page.type("#sp_date", "2026-10-09")
-        await page.type("#sp_description", "Some description")
-        await page.click("#pay_saved_payees")
-        
-        const successMessage = await page.locator("#alert_content > span")
-        await expect(successMessage).toBeVisible()
-        await expect(successMessage).toContainText("The payment was successfully submitted.")
+        // The band-aid solution, because currently the website does different things than it does for the teacher
+        // And thus I am forced to use a workaround
+        await paymentPage.goToAccountSummary()
+        await navbar.clickOnTab("Pay Bills")
+        await paymentPage.createPayment()
+        await paymentPage.assertSuccessMessage()
     })
 })
