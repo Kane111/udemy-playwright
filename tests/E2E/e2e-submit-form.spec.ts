@@ -4,7 +4,7 @@ import { FeedbackPage } from '../../page-objects/FeedbackPage'
 
 
 
-test.describe.only("Feedback Form", () => {
+test.describe("Feedback Form", () => {
 
     let homePage: HomePage
     let feedbackPage: FeedbackPage
