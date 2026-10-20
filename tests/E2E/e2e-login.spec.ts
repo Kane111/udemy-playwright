@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 import { LoginPage } from "../../page-objects/LoginPage.ts"
 import { HomePage } from '../../page-objects/HomePage.ts'
 
-test.describe.parallel("Login / Logout Flow", () => {
+test.describe("Login / Logout Flow", () => {
     // Creating the variables for imported functions from other files above
     let loginPage: LoginPage
     let homePage: HomePage
@@ -26,6 +26,7 @@ test.beforeEach(async ({ page }) => {
     test("Negative Scenario for login", async ({ page }) => {
         await homePage.clickOnSignIn()
         await loginPage.wrongLogin("invalid username", "invalid password")
+        await loginPage.wait(3000)
         await loginPage.assertErrorMessage()
     })
 

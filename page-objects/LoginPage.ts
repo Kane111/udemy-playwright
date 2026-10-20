@@ -1,9 +1,10 @@
 import { expect, Locator, Page } from '@playwright/test'
+import { AbstractPage } from './AbstractPage'
 
-export class LoginPage {
+export class LoginPage extends AbstractPage{
     // Define selectors 
 
-    readonly page: Page
+    // readonly page: Page -- we no longer need it, because we're importing this from AbstractPage object
     readonly usernameInput: Locator
     readonly passwordInput: Locator
     readonly submitButton: Locator
@@ -12,7 +13,10 @@ export class LoginPage {
     // Init selectors using constructor
 
     constructor(page: Page) {
-        this.page = page
+        // this.page = page -- same as above
+        // Super (or superconstructor) is a function where we call a constructor from a function we extend from
+        // In this case, AbstractPage above, in export
+        super(page)
         this.usernameInput = page.locator("#user_login")
         this.passwordInput = page.locator("#user_password")
         this.submitButton = page.locator("text=Sign in")
