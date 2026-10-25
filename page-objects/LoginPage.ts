@@ -46,6 +46,9 @@ export class LoginPage extends AbstractPage{
         await expect(this.errorMessage).toContainText("Login and/or password are wrong")
     }
 
+
+    // Needed to put "await" inside the expect( .screenshot()) because modern Playwright is tighter about those assertions than the version
+    // from the video I've learnt from
     async snapshotLoginForm() {
         await expect(await this.loginForm.screenshot()).toMatchSnapshot("login-form.png")
     }

@@ -23,3 +23,5 @@ test.describe.parallel("Login Page Visual Tests", () => {
         await loginpage.snapshotErrorMessage()
     })
 })
+
+// Command to update the Snapshots (if you need them updated): --update-snapshots

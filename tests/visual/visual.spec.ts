@@ -1,12 +1,15 @@
 import { test, expect } from '@playwright/test'
 
-test.describe.parallel("Visual Regression Testing Example", () => {
+test.describe.parallel.only("Visual Regression Testing Example", () => {
    
+    // This is for entire Page Screenshot to form a Snapshot -- to compare the future Screenshots to that Snapshot
+    // It will flag whatever inconsistencies happen with comparison of all pixels
     test("Full Page Snapshot", async ({ page }) => {
         await page.goto("https://www.example.com")
         expect(await page.screenshot()).toMatchSnapshot("homepage.png")
     })
 
+    // Same as above in principle, but only doing that to a specific, defined thing
     test("Single Element Snapshot", async ({ page }) => {
         await page.goto("https://www.example.com")
         const pageElement = await page.locator('body > p[lang="en"]')
@@ -21,3 +24,4 @@ test.describe.parallel("Visual Regression Testing Example", () => {
 
 })
 
+// Command to update the Snapshots (if you need them updated): --update-snapshots
