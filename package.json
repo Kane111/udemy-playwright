@@ -8,7 +8,14 @@
     "tests:firefox": "playwright test --config=playwright.config.ts --project=Firefox",
     "tests:webkit": "playwright test --config=playwright.config.ts --project=Webkit",
     "tests:e2e": "playwright test --config=e2e.config.ts --project=Chromium",
-    "tests:e2eh": "playwright test --config=e2e.config.ts --project=Chromium --headed"
+    "tests:e2eh": "playwright test --config=e2e.config.ts --project=Chromium --headed",
+    "test:visual:chrome": "playwright test --config=visual.config.ts --project=Chromium",
+    "test:visual:firefox": "playwright test --config=visual.config.ts --project=Firefox",
+    "test:visual:webkit": "playwright test --config=visual.config.ts --project=Webkit",
+    "test:visual:chrome:update": "playwright test --config=visual.config.ts --project=Chromium --update-snapshots",
+    "test:visual:firefox:update": "playwright test --config=visual.config.ts --project=Firefox --update-snapshots",
+    "test:visual:webkit:update": "playwright test --config=visual.config.ts --project=Webkit --update-snapshots"
+
   },
   "author": "Kane",
   "license": "ISC",
