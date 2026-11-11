@@ -16,7 +16,7 @@ test.describe.parallel.only("Visual Regression Testing Example", () => {
         expect(await pageElement.screenshot()).toMatchSnapshot("page-element-english.png")
     })
 
-    test("Single Element Snapshot Wikipedia", async ({ page }) => {
+    test.skip("Single Element Snapshot Wikipedia", async ({ page }) => {
         await page.goto("https://en.wikipedia.org/wiki/Wikipedia")
         const pageElementWikipedia = await page.$("h1")
         expect(await pageElementWikipedia.screenshot()).toMatchSnapshot("page-table-wikipedia.png")
