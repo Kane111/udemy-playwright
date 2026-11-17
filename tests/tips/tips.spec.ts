@@ -10,4 +10,9 @@ test.describe.only("Tips and tricks Section", () => {
         test.skip(browserName === "chromium", "Feature not ready in Chrome browser")
         await page.goto('https://www.example.com')
     })
+
+    test("Test FixMe Annotation", async ({ page, browserName }) => {
+        test.fixme(browserName === "chromium", "Test is not stable, needs revision")
+        await page.goto('https://www.example.com')
+    })
 })
